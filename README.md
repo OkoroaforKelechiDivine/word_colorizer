@@ -89,7 +89,6 @@ class MyApp extends StatelessWidget {
 https://github.com/user-attachments/assets/10a9fde9-a1a4-4b0a-95cb-4804f24e06f7
 
 
-```
 ## Usage for a single word
 
 ```dart
