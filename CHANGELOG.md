@@ -27,20 +27,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
-## [0.1.0] - 2025-01-01
-### Added
-- Project setup, basic structure, and core functionality.
-- Ability to highlight individual words within text.
-
----
-
-## [0.0.1] - 2024-12-15
-### Added
-- Initial project setup.
-- First commit with a basic `CustomHighlightedText` widget to render text.
-
----
-
 ## [Deprecated]
 - N/A
 
