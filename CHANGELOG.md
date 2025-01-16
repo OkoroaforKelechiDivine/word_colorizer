@@ -8,13 +8,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
-## [1.0.0] - 2025-01-16
+## [0.0.1] - 2025-01-16
 ### Added
 - **Initial Release** of `word_colorizer`:
   - Highlight specific words in a text and make them clickable.
   - Support for multiple highlighted words with separate actions.
   - Customizable styling for highlighted and default text.
   - Support for navigating between screens by clicking highlighted words.
+
+---
+
+
+## [0.0.2] - 2025-01-16
+  - Replaced readMe file .
+  - Added an example.
+  - Case sensitive.
+  - Mutiple hightlight color.
 
 ---
 

@@ -32,12 +32,23 @@ dependencies:
 flutter pub get
 
 ```
+---
+
+## 🎬 Demo Video
+
+Check out the video below to see **Project Name** in action:  
+
+[![Watch the Demo](./lib/src/thumbnail.png)](./lib/src/video.mp4)  
+> Click the image to download and watch the video.
+
+Alternatively, [download the video directly](./lib/src/video.mp4).
 
 ---
 
 ## Usage for multiple words
 
 ```dart
+
 import 'package:flutter/material.dart';
 import 'package:word_colorizer/word_colorizer.dart';
 
@@ -55,25 +66,23 @@ class MyApp extends StatelessWidget {
           padding: EdgeInsets.all(16.0),
           child: WordColorizer(
             text: "By selecting Agree and continue, I agree to Dynamic Layers Terms of Service, Payments Terms of Service and Notification Policy and acknowledge the Privacy Policy.",
-            highlightWords: {
-              "Terms of Service, Payments Terms of Service, Notification Policy, Privacy Policy"
-            },
+            highlightWords: "Terms of Service, Payments Terms of Service, Notification Policy, Privacy Policy",
             fontSize: 11,
             textAlign: TextAlign.left,
             highlightColor: Colors.blue,
             isHighlightClickable: true,
             onHighlightTapMap: {
               "Terms of Service": () {
-                navigationService.pushNamed("/terms-of-service");
+                print("Terms of Service clicked");
               },
               "Payments Terms of Service": () {
-                navigationService.pushNamed("/payments-terms-of-service");
+                print("Payments Terms of Service clicked");
               },
               "Notification Policy": () {
-                navigationService.pushNamed("/notification-policy");
+                print("Notification Policy clicked");
               },
               "Privacy Policy": () {
-                navigationService.pushNamed("/privacy-policy");
+                print("Privacy Policy clicked");
               },
             },
           ),
@@ -82,44 +91,5 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-```
 
-## Usage for a single word
-
-```dart
-import 'package:flutter/material.dart';
-import 'package:word_colorizer/word_colorizer.dart';
-
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(title: Text('Word Colorizer Example')),
-        body: Padding(
-          padding: EdgeInsets.all(16.0),
-          child: WordColorizer(
-            text: "By selecting Agree and continue, I agree to Dynamic Layers Terms of Service, Payments Terms of Service and Notification Policy and acknowledge the Privacy Policy.",
-            highlightWords: {
-              "Terms of Service"
-            },
-            fontSize: 11,
-            textAlign: TextAlign.left,
-            highlightColor: Colors.blue,
-            isHighlightClickable: true,
-            onHighlightTapMap: {
-              "Terms of Service": () {
-                navigationService.pushNamed("/terms-of-service");
-              },
-            },
-          ),
-        ),
-      ),
-    );
-  }
-}
 ```
