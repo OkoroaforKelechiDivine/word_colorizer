@@ -1,60 +1,25 @@
-# CustomHighlightedText Flutter Package
+# CustomHighlightedText
 
-`CustomHighlightedText` is a Flutter widget that allows you to highlight specific words within a given text, with support for multiple words. The highlighted words can be made interactive, and you can associate different actions (such as navigation) for each highlighted word.
+`CustomHighlightedText` is a powerful and customizable Flutter widget that allows you to highlight specific words in a given text. It also supports interactivity, enabling you to add clickable actions for highlighted words such as navigation, callbacks, or other custom behaviors. This widget is ideal for use in chat applications, educational apps, blogs, or any app that needs to highlight and interact with specific words.
 
-### Features:
-- **Highlight single or multiple words** within the text.
-- **Customizable highlight color** for highlighted words.
-- **Customizable text color** for non-highlighted text.
-- **Clickable highlighted words** with customizable actions for navigation or other tasks.
-- **Supports both iOS and Android**.
+---
+
+## Features
+
+- **Highlight Words**: Specify words within the text that should be highlighted.
+- **Customizable Styles**: Easily customize the highlight color, default color, font size, and text alignment.
+- **Interactive Highlights**: Make highlighted words clickable and define custom actions (such as navigating to a different screen).
+- **Supports Multiple Words**: Highlight multiple words in the same text and apply different actions to each.
+- **No Dependencies**: This package is lightweight and doesn't rely on third-party libraries for font styling.
 
 ---
 
 ## Installation
 
-Add the `CustomHighlightedText` package to your `pubspec.yaml` file:
+Add the package to your `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  flutter:
-    sdk: flutter
   custom_highlighted_text: ^1.0.0
 
-
-## Usage
-
-### Basic Usage:
-
-To use the `CustomHighlightedText` widget, simply pass in the full text and the words you want to highlight.
-
-```dart
-import 'package:flutter/material.dart';
-import 'package:custom_highlighted_text/custom_highlighted_text.dart';
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("Custom Highlighted Text Example"),
-        ),
-        body: Center(
-          child: CustomHighlightedText(
-            text: "Flutter is an amazing framework.",
-            highlightWords: "Flutter,framework",
-            highlightColor: Colors.blue,
-            defaultColor: Colors.black,
-            isHighlightClickable: true,
-            onHighlightTapMap: {
-              "Flutter": () => print("Flutter tapped"),
-              "framework": () => print("framework tapped"),
-            },
-          ),
-        ),
-      ),
-    );
-  }
-}
-# word_colorizer
+flutter pub get
