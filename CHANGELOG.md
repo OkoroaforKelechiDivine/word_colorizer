@@ -8,15 +8,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
-## [Unreleased]
-### Added
-- Initial setup of the `Word` widget.
-- Ability to highlight multiple words within a single text.
-- Customizable highlight color and default color.
-- Support for clickable highlighted words with custom actions (e.g., navigation, callbacks).
-
----
-
 ## [1.0.0] - 2025-01-16
 ### Added
 - **Initial Release** of `word_colorizer`:
