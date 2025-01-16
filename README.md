@@ -128,3 +128,24 @@ class MyApp extends StatelessWidget {
   }
 }
 ```
+
+## Highlights with different colors
+
+To support multiple highlight colors, the WordColorizer widget can accept a map where each word is mapped to its respective highlight color.
+``` dart
+
+WordColorizer(
+  text: "Flutter is an amazing framework.",
+  highlightWordsWithColors: {
+    "Flutter": Colors.blue,
+    "framework": Colors.red,
+  },
+  defaultColor: Colors.black,
+  isHighlightClickable: true,
+  onHighlightTapMap: {
+    "Flutter": () => print("Flutter tapped"),
+    "framework": () => print("Framework tapped"),
+  },
+);
+
+```

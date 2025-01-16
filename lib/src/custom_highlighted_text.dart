@@ -1,15 +1,17 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
- 
+
 /// This widget allows you to specify words within the text to be highlighted
-/// with a distinct color and optional interactivity.
-/// 
+/// with distinct colors and optional interactivity.
+///
 /// Example usage:
 /// ```dart
 /// WordColorizer(
 ///   text: "Flutter is an amazing framework.",
-///   highlightWords: "Flutter,framework",
-///   highlightColor: Colors.blue,
+///   highlightWordsWithColors: {
+///     "Flutter": Colors.blue,
+///     "framework": Colors.red,
+///   },
 ///   defaultColor: Colors.black,
 ///   isHighlightClickable: true,
 ///   onHighlightTapMap: {
@@ -17,11 +19,9 @@ import 'package:flutter/material.dart';
 ///   },
 /// )
 /// ```
-/// 
 class WordColorizer extends StatelessWidget {
   final String text;
-  final String highlightWords;
-  final Color? highlightColor;
+  final Map<String, Color> highlightWordsWithColors;
   final Color? defaultColor;
 
   final TextAlign textAlign;
@@ -32,8 +32,7 @@ class WordColorizer extends StatelessWidget {
   const WordColorizer({
     super.key,
     required this.text,
-    required this.highlightWords,
-    this.highlightColor,
+    required this.highlightWordsWithColors,
     this.defaultColor,
     this.textAlign = TextAlign.center,
     this.fontSize = 24,
@@ -43,9 +42,7 @@ class WordColorizer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<String> highlightList = highlightWords.split(',').map((e) => e.trim()).toList();
-
-    List<InlineSpan> createTextSpans(String fullText, List<String> highlightList) {
+    List<InlineSpan> createTextSpans(String fullText, Map<String, Color> highlightMap) {
       List<InlineSpan> spans = [];
       int startIndex = 0;
 
@@ -56,15 +53,10 @@ class WordColorizer extends StatelessWidget {
         );
       }
 
-      TextStyle highlightTextStyle() {
-        return TextStyle(
-          fontSize: fontSize,
-          color: highlightColor ?? Colors.green,
-          fontWeight: FontWeight.bold,
-        );
-      }
+      for (final entry in highlightMap.entries) {
+        final String word = entry.key;
+        final Color color = entry.value;
 
-      for (final word in highlightList) {
         final int matchIndex = fullText.indexOf(word, startIndex);
         if (matchIndex == -1) continue; // Skip if the word is not found.
         if (matchIndex > startIndex) {
@@ -78,7 +70,11 @@ class WordColorizer extends StatelessWidget {
         spans.add(
           TextSpan(
             text: word,
-            style: highlightTextStyle(),
+            style: TextStyle(
+              fontSize: fontSize,
+              color: color,
+              fontWeight: FontWeight.bold,
+            ),
             recognizer: isHighlightClickable &&
                     onHighlightTapMap != null &&
                     onHighlightTapMap!.containsKey(word)
@@ -103,7 +99,7 @@ class WordColorizer extends StatelessWidget {
     return RichText(
       textAlign: textAlign,
       text: TextSpan(
-        children: createTextSpans(text, highlightList),
+        children: createTextSpans(text, highlightWordsWithColors),
       ),
     );
   }
