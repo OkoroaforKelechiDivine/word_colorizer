@@ -1,5 +1,5 @@
 name: word_colorizer
-description: "A Flutter package that allows users to create dynamically highlighted text by specifying words to emphasize within a sentence. Customize colors, font styles, and even add interactivity to highlighted words for a seamless and engaging user experience."
+description: "A Flutter package that enables dynamic text highlighting by specifying words to emphasize. Customize colors, fonts, and add interactivity for an engaging experience."
 version: 0.0.1
 homepage: https://github.com/OkoroaforKelechiDivine/word_colorizer
 
