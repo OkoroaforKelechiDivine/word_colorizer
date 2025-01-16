@@ -56,10 +56,7 @@ class MyApp extends StatelessWidget {
           child: WordColorizer(
             text: "By selecting Agree and continue, I agree to Dynamic Layers Terms of Service, Payments Terms of Service and Notification Policy and acknowledge the Privacy Policy.",
             highlightWords: {
-              "Terms of Service": TextStyle(color: Colors.blue),
-              "Payments Terms of Service": TextStyle(color: Colors.green),
-              "Notification Policy": TextStyle(color: Colors.orange),
-              "Privacy Policy": TextStyle(color: Colors.purple),
+              "Terms of Service, Payments Terms of Service, Notification Policy, Privacy Policy"
             },
             fontSize: 11,
             textAlign: TextAlign.left,
