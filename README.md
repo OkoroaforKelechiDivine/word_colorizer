@@ -23,3 +23,37 @@ dependencies:
   word_colorizer: ^1.0.0
 
 flutter pub get
+
+## USAGE
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:word_colorizer/word_colorizer.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(title: Text('Word Colorizer Example')),
+        body: Padding(
+          padding: EdgeInsets.all(16.0),
+          child: WordColorizer(
+            text: "This is a sample text with highlighted words.",
+            highlightWords: {
+              "sample": TextStyle(color: Colors.blue),
+              "highlighted": TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
+            },
+            onTap: (word) {
+              print("You clicked on $word");
+            },
+          ),
+        ),
+      ),
+    );
+  }
+}
