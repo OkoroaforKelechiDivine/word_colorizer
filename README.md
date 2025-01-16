@@ -26,6 +26,8 @@ dependencies:
 
 ```
 
+## Run
+
 ```console
 flutter pub get
 
@@ -33,7 +35,7 @@ flutter pub get
 
 ---
 
-## Usage
+## Usage for multiple words
 
 ```dart
 import 'package:flutter/material.dart';
@@ -75,6 +77,46 @@ class MyApp extends StatelessWidget {
               },
               "Privacy Policy": () {
                 navigationService.pushNamed("/privacy-policy");
+              },
+            },
+          ),
+        ),
+      ),
+    );
+  }
+}
+```
+
+## Usage for a single word
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:word_colorizer/word_colorizer.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(title: Text('Word Colorizer Example')),
+        body: Padding(
+          padding: EdgeInsets.all(16.0),
+          child: WordColorizer(
+            text: "By selecting Agree and continue, I agree to Dynamic Layers Terms of Service, Payments Terms of Service and Notification Policy and acknowledge the Privacy Policy.",
+            highlightWords: {
+              "Terms of Service"
+            },
+            fontSize: 11,
+            textAlign: TextAlign.left,
+            highlightColor: Colors.blue,
+            isHighlightClickable: true,
+            onHighlightTapMap: {
+              "Terms of Service": () {
+                navigationService.pushNamed("/terms-of-service");
               },
             },
           ),
