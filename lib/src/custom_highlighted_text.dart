@@ -24,13 +24,11 @@ class WordColorizer extends StatelessWidget {
   final Color? highlightColor;
   final Color? defaultColor;
 
-  /// The alignment of the text. Defaults to [TextAlign.center].
   final TextAlign textAlign;
   final double fontSize;
   final bool isHighlightClickable;
   final Map<String, VoidCallback>? onHighlightTapMap;
 
-  /// Constructs a [WordColorizer] widget.
   const WordColorizer({
     super.key,
     required this.text,
