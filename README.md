@@ -14,6 +14,8 @@
 
 ---
 
+
+
 ## Installation
 
 Add the package to your `pubspec.yaml` file:
@@ -22,7 +24,12 @@ Add the package to your `pubspec.yaml` file:
 dependencies:
   word_colorizer: ^1.0.0
 
+```
+
+```console
 flutter pub get
+
+```
 
 ---
 
