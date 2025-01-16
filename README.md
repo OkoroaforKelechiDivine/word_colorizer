@@ -24,7 +24,6 @@ dependencies:
 
 flutter pub get
 
-## USAGE
 
 ```dart
 import 'package:flutter/material.dart';
@@ -43,13 +42,30 @@ class MyApp extends StatelessWidget {
         body: Padding(
           padding: EdgeInsets.all(16.0),
           child: WordColorizer(
-            text: "This is a sample text with highlighted words.",
+            text: "By selecting Agree and continue, I agree to Dynamic Layers Terms of Service, Payments Terms of Service and Notification Policy and acknowledge the Privacy Policy.",
             highlightWords: {
-              "sample": TextStyle(color: Colors.blue),
-              "highlighted": TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
+              "Terms of Service": TextStyle(color: Colors.blue),
+              "Payments Terms of Service": TextStyle(color: Colors.green),
+              "Notification Policy": TextStyle(color: Colors.orange),
+              "Privacy Policy": TextStyle(color: Colors.purple),
             },
-            onTap: (word) {
-              print("You clicked on $word");
+            fontSize: 11,
+            textAlign: TextAlign.left,
+            highlightColor: Colors.blue,
+            isHighlightClickable: true,
+            onHighlightTapMap: {
+              "Terms of Service": () {
+                navigationService.pushNamed("/terms-of-service");
+              },
+              "Payments Terms of Service": () {
+                navigationService.pushNamed("/payments-terms-of-service");
+              },
+              "Notification Policy": () {
+                navigationService.pushNamed("/notification-policy");
+              },
+              "Privacy Policy": () {
+                navigationService.pushNamed("/privacy-policy");
+              },
             },
           ),
         ),
@@ -57,3 +73,4 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+```
