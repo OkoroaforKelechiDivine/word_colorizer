@@ -24,6 +24,9 @@ dependencies:
 
 flutter pub get
 
+---
+
+## Usage
 
 ```dart
 import 'package:flutter/material.dart';
