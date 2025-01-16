@@ -1,6 +1,6 @@
-# CustomHighlightedText
+# WordColorizer
 
-`CustomHighlightedText` is a powerful and customizable Flutter widget that allows you to highlight specific words in a given text. It also supports interactivity, enabling you to add clickable actions for highlighted words such as navigation, callbacks, or other custom behaviors. This widget is ideal for use in chat applications, educational apps, blogs, or any app that needs to highlight and interact with specific words.
+`WordColorizer` is a powerful and customizable Flutter widget that allows you to highlight specific words in a given text. It also supports interactivity, enabling you to add clickable actions for highlighted words such as navigation, callbacks, or other custom behaviors. This widget is ideal for use in chat applications, educational apps, blogs, or any app that needs to highlight and interact with specific words.
 
 ---
 
@@ -20,6 +20,6 @@ Add the package to your `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  custom_highlighted_text: ^1.0.0
+  word_colorizer: ^1.0.0
 
 flutter pub get
