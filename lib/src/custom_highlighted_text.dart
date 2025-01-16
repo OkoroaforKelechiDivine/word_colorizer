@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 /// 
 /// Example usage:
 /// ```dart
-/// CustomHighlightedText(
+/// WordColorizer(
 ///   text: "Flutter is an amazing framework.",
 ///   highlightWords: "Flutter,framework",
 ///   highlightColor: Colors.blue,
@@ -18,20 +18,20 @@ import 'package:flutter/material.dart';
 /// )
 /// ```
 /// 
-class CustomHighlightedText extends StatelessWidget {
+class WordColorizer extends StatelessWidget {
   final String text;
   final String highlightWords;
   final Color? highlightColor;
   final Color? defaultColor;
-  
+
   /// The alignment of the text. Defaults to [TextAlign.center].
   final TextAlign textAlign;
   final double fontSize;
   final bool isHighlightClickable;
   final Map<String, VoidCallback>? onHighlightTapMap;
 
-  /// Constructs a [CustomHighlightedText] widget.
-  const CustomHighlightedText({
+  /// Constructs a [WordColorizer] widget.
+  const WordColorizer({
     super.key,
     required this.text,
     required this.highlightWords,
