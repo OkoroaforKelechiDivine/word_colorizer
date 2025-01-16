@@ -38,10 +38,7 @@ flutter pub get
 
 Check out the video below to see **Project Name** in action:  
 
-[![Watch the Demo](./lib/src/thumbnail.png)](./lib/src/video.gif)  
-> Click the image to download and watch the video.
-
-Alternatively, [download the video directly](./lib/src/video.mp4).
+(./lib/src/video.gif)  
 
 ---
 
