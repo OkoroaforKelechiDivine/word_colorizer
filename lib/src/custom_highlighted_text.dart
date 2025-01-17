@@ -1,7 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-
 class WordColorizer extends StatelessWidget {
   final String text;
   final Map<String, Color> highlightWordsWithColors;
@@ -36,44 +35,51 @@ class WordColorizer extends StatelessWidget {
         );
       }
 
-      for (final entry in highlightMap.entries) {
-        final String word = entry.key;
-        final Color color = entry.value;
+      if (highlightMap.isEmpty) {
+        spans.add(TextSpan(
+          text: fullText,
+          style: defaultTextStyle(),
+        ));
+      } else {
+        for (final entry in highlightMap.entries) {
+          final String word = entry.key;
+          final Color color = entry.value;
 
-        final int matchIndex = fullText.indexOf(word, startIndex);
-        if (matchIndex == -1) continue; // Skip if the word is not found.
-        if (matchIndex > startIndex) {
+          int matchIndex = fullText.indexOf(word, startIndex);
+          if (matchIndex == -1) continue; // Skip if the word is not found.
+          if (matchIndex > startIndex) {
+            spans.add(
+              TextSpan(
+                text: fullText.substring(startIndex, matchIndex),
+                style: defaultTextStyle(),
+              ),
+            );
+          }
           spans.add(
             TextSpan(
-              text: fullText.substring(startIndex, matchIndex),
+              text: word,
+              style: TextStyle(
+                fontSize: fontSize,
+                color: color,
+                fontWeight: FontWeight.bold,
+              ),
+              recognizer: isHighlightClickable &&
+                      onHighlightTapMap != null &&
+                      onHighlightTapMap!.containsKey(word)
+                  ? (TapGestureRecognizer()..onTap = onHighlightTapMap![word])
+                  : null,
+            ),
+          );
+          startIndex = matchIndex + word.length;
+        }
+        if (startIndex < fullText.length) {
+          spans.add(
+            TextSpan(
+              text: fullText.substring(startIndex),
               style: defaultTextStyle(),
             ),
           );
         }
-        spans.add(
-          TextSpan(
-            text: word,
-            style: TextStyle(
-              fontSize: fontSize,
-              color: color,
-              fontWeight: FontWeight.bold,
-            ),
-            recognizer: isHighlightClickable &&
-                    onHighlightTapMap != null &&
-                    onHighlightTapMap!.containsKey(word)
-                ? (TapGestureRecognizer()..onTap = onHighlightTapMap![word])
-                : null,
-          ),
-        );
-        startIndex = matchIndex + word.length;
-      }
-      if (startIndex < fullText.length) {
-        spans.add(
-          TextSpan(
-            text: fullText.substring(startIndex),
-            style: defaultTextStyle(),
-          ),
-        );
       }
 
       return spans;
