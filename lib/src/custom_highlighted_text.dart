@@ -1,24 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-/// This widget allows you to specify words within the text to be highlighted
-/// with distinct colors and optional interactivity.
-///
-/// Example usage:
-/// ```dart
-/// WordColorizer(
-///   text: "Flutter is an amazing framework.",
-///   highlightWordsWithColors: {
-///     "Flutter": Colors.blue,
-///     "framework": Colors.red,
-///   },
-///   defaultColor: Colors.black,
-///   isHighlightClickable: true,
-///   onHighlightTapMap: {
-///     "Flutter": () => print("Flutter tapped"),
-///   },
-/// )
-/// ```
+
 class WordColorizer extends StatelessWidget {
   final String text;
   final Map<String, Color> highlightWordsWithColors;
@@ -32,7 +15,7 @@ class WordColorizer extends StatelessWidget {
   const WordColorizer({
     super.key,
     required this.text,
-    required this.highlightWordsWithColors,
+    this.highlightWordsWithColors = const {},
     this.defaultColor,
     this.textAlign = TextAlign.center,
     this.fontSize = 24,
