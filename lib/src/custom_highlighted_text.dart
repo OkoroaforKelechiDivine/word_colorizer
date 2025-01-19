@@ -8,7 +8,12 @@ class WordColorizer extends StatelessWidget {
 
   final TextAlign textAlign;
   final double fontSize;
+  final String? fontFamily;
   final bool isHighlightClickable;
+  /// New property to replace `onHighlightTapMap`.
+  final Map<String, VoidCallback>? onHighlightTap;
+
+  @Deprecated('Use `onHighlightTap` instead.')
   final Map<String, VoidCallback>? onHighlightTapMap;
 
   const WordColorizer({
@@ -18,12 +23,23 @@ class WordColorizer extends StatelessWidget {
     this.defaultColor,
     this.textAlign = TextAlign.center,
     this.fontSize = 24,
+    this.fontFamily,
     this.isHighlightClickable = false,
+    this.onHighlightTap,
     this.onHighlightTapMap,
   });
 
   @override
   Widget build(BuildContext context) {
+    bool hasHighlightTap(String word) {
+      return (onHighlightTap?.containsKey(word) ?? false) ||
+          (onHighlightTapMap?.containsKey(word) ?? false);
+    }
+
+    VoidCallback? getHighlightTapCallback(String word) {
+      return onHighlightTap?[word] ?? onHighlightTapMap?[word];
+    }
+
     List<InlineSpan> createTextSpans(String fullText, Map<String, Color> highlightMap) {
       List<InlineSpan> spans = [];
       int startIndex = 0;
@@ -31,6 +47,7 @@ class WordColorizer extends StatelessWidget {
       TextStyle defaultTextStyle() {
         return TextStyle(
           fontSize: fontSize,
+          fontFamily: fontFamily,
           color: defaultColor ?? Colors.black,
         );
       }
@@ -60,13 +77,12 @@ class WordColorizer extends StatelessWidget {
               text: word,
               style: TextStyle(
                 fontSize: fontSize,
+                fontFamily: fontFamily,
                 color: color,
                 fontWeight: FontWeight.bold,
               ),
-              recognizer: isHighlightClickable &&
-                      onHighlightTapMap != null &&
-                      onHighlightTapMap!.containsKey(word)
-                  ? (TapGestureRecognizer()..onTap = onHighlightTapMap![word])
+              recognizer: isHighlightClickable && hasHighlightTap(word)
+                  ? (TapGestureRecognizer()..onTap = getHighlightTapCallback(word))
                   : null,
             ),
           );

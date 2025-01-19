@@ -4,7 +4,9 @@ import 'package:word_colorizer/word_colorizer.dart';
 
 void main() {
   group('WordColorizer Tests', () {
-    testWidgets('should display text without highlighting when no highlight words provided', (WidgetTester tester) async {
+    testWidgets(
+        'should display text without highlighting when no highlight words provided',
+        (WidgetTester tester) async {
       const String text = 'Flutter is amazing';
 
       await tester.pumpWidget(const MaterialApp(
@@ -25,7 +27,8 @@ void main() {
       }
     });
 
-    testWidgets('should highlight specified words with correct colors', (WidgetTester tester) async {
+    testWidgets('should highlight specified words with correct colors',
+        (WidgetTester tester) async {
       const String text = 'Flutter is an amazing framework';
       final highlightWordsWithColors = {
         'Flutter': Colors.blue,
@@ -51,7 +54,8 @@ void main() {
       }
     });
 
-    testWidgets('should handle clickable highlighted words', (WidgetTester tester) async {
+    testWidgets('should handle clickable highlighted words',
+        (WidgetTester tester) async {
       const String text = 'Flutter is an amazing framework';
       final highlightWordsWithColors = {
         'Flutter': Colors.blue,
@@ -84,7 +88,9 @@ void main() {
       expect(tappedFramework, true);
     });
 
-    testWidgets('should handle highlighting multiple words with different colors', (WidgetTester tester) async {
+    testWidgets(
+        'should handle highlighting multiple words with different colors',
+        (WidgetTester tester) async {
       const String text = 'Flutter is an amazing framework';
       final highlightWordsWithColors = {
         'Flutter': Colors.green,
