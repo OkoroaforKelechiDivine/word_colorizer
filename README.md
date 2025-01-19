@@ -64,6 +64,7 @@ class MyApp extends StatelessWidget {
             "Kelechi" : Colors.green,
             "project" : Colors.yellow,
           },
+          fontFamily: "Roboto",
           onHighlightTap: {
             "Kelechi":() => print("Do the navigation here"),
             "project" : () => print("Do the navigation here")
