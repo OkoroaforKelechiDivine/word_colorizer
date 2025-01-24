@@ -1,16 +1,17 @@
 # WordColorizer
 
-`WordColorizer` is a powerful and customizable Flutter widget that allows you to highlight specific words in a given text. It also supports interactivity, enabling you to add clickable actions for highlighted words such as navigation, callbacks, or other custom behaviors. This widget is ideal for use in chat applications, educational apps, blogs, or any app that needs to highlight and interact with specific words.
+The `WordColorizer` Flutter package allows developers to enhance text by highlighting specific words with customizable styles and interactive features, particularly useful in applications like chat and educational tools. It supports multiple highlighted words, each with customizable actions, without relying on external libraries, making it lightweight and efficient. The package's flexibility in styling and interactivity empowers developers to create rich application user experiences.
 
 ---
 
 ## Features
 
-- **Highlight Words**: Specify words within the text that should be highlighted.
-- **Customizable Styles**: Easily customize the highlight color, default color, font size, font family and text alignment.
-- **Interactive Highlights**: Make highlighted words clickable and define custom actions (such as navigating to a different screen).
-- **Supports Multiple Words**: Highlight multiple words in the same text and apply different actions to each.
-- **No Dependencies**: This package is lightweight and doesn't rely on third-party libraries for font styling.
+- WordColorizer enables the customization of text by highlighting specific words.
+- Users can define the highlight colour, font size, font family, and text alignment.
+- Highlighted words can be made interactive, allowing clickable actions such as navigation.
+- The widget supports the highlighting of multiple words within the same text, each with different actions.
+- The package is lightweight and does not depend on third-party libraries for font styling.
+
 
 ---
 
