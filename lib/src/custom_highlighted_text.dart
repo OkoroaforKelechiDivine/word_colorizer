@@ -1,16 +1,15 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class WordColorizer extends StatelessWidget {
   final String text;
   final Map<String, Color> highlightWordsWithColors;
   final Color? defaultColor;
-
   final TextAlign textAlign;
   final double fontSize;
   final String? fontFamily;
   final bool isHighlightClickable;
-  /// New property to replace `onHighlightTapMap`.
   final Map<String, VoidCallback>? onHighlightTap;
 
   @Deprecated('Use `onHighlightTap` instead.')
@@ -33,68 +32,82 @@ class WordColorizer extends StatelessWidget {
   Widget build(BuildContext context) {
     bool hasHighlightTap(String word) {
       return (onHighlightTap?.containsKey(word) ?? false) ||
-          (onHighlightTapMap?.containsKey(word) ?? false);
+          (onHighlightTap?.containsKey(word) ?? false);
     }
 
     VoidCallback? getHighlightTapCallback(String word) {
-      return onHighlightTap?[word] ?? onHighlightTapMap?[word];
+      return onHighlightTap?[word] ?? onHighlightTap?[word];
+    }
+
+    TextStyle resolveTextStyle(Color color, {bool isBold = false}) {
+      final fontWeight = isBold ? FontWeight.bold : FontWeight.normal;
+
+      if (fontFamily != null && fontFamily!.toLowerCase().startsWith('google.')) {
+        final googleFontName = fontFamily!.split('.').last;
+        return _getGoogleFontTextStyle(
+          googleFontName,
+          color: color,
+          size: fontSize,
+          weight: fontWeight,
+        );
+      }
+
+      return TextStyle(
+        fontFamily: fontFamily,
+        fontSize: fontSize,
+        color: color,
+        fontWeight: fontWeight,
+      );
     }
 
     List<InlineSpan> createTextSpans(String fullText, Map<String, Color> highlightMap) {
       List<InlineSpan> spans = [];
       int startIndex = 0;
 
-      TextStyle defaultTextStyle() {
-        return TextStyle(
-          fontSize: fontSize,
-          fontFamily: fontFamily,
-          color: defaultColor ?? Colors.black,
-        );
-      }
-
       if (highlightMap.isEmpty) {
         spans.add(TextSpan(
           text: fullText,
-          style: defaultTextStyle(),
+          style: resolveTextStyle(defaultColor ?? Colors.black),
         ));
       } else {
-        for (final entry in highlightMap.entries) {
-          final String word = entry.key;
-          final Color color = entry.value;
-
-          int matchIndex = fullText.indexOf(word, startIndex);
-          if (matchIndex == -1) continue; // Skip if the word is not found.
-          if (matchIndex > startIndex) {
-            spans.add(
-              TextSpan(
-                text: fullText.substring(startIndex, matchIndex),
-                style: defaultTextStyle(),
-              ),
-            );
+        while (startIndex < fullText.length) {
+          int earliestMatchIndex = fullText.length;
+          String? matchedWord;
+          for (final word in highlightMap.keys) {
+            final matchIndex = fullText.indexOf(word, startIndex);
+            if (matchIndex >= 0 && matchIndex < earliestMatchIndex) {
+              earliestMatchIndex = matchIndex;
+              matchedWord = word;
+            }
           }
-          spans.add(
-            TextSpan(
-              text: word,
-              style: TextStyle(
-                fontSize: fontSize,
-                fontFamily: fontFamily,
-                color: color,
-                fontWeight: FontWeight.bold,
-              ),
-              recognizer: isHighlightClickable && hasHighlightTap(word)
-                  ? (TapGestureRecognizer()..onTap = getHighlightTapCallback(word))
-                  : null,
-            ),
-          );
-          startIndex = matchIndex + word.length;
-        }
-        if (startIndex < fullText.length) {
-          spans.add(
-            TextSpan(
+
+          if (matchedWord == null) {
+            spans.add(TextSpan(
               text: fullText.substring(startIndex),
-              style: defaultTextStyle(),
+              style: resolveTextStyle(defaultColor ?? Colors.black),
+            ));
+            break;
+          }
+
+          if (earliestMatchIndex > startIndex) {
+            spans.add(TextSpan(
+              text: fullText.substring(startIndex, earliestMatchIndex),
+              style: resolveTextStyle(defaultColor ?? Colors.black),
+            ));
+          }
+
+          spans.add(TextSpan(
+            text: matchedWord,
+            style: resolveTextStyle(
+              highlightWordsWithColors[matchedWord] ?? Colors.black,
+              isBold: true,
             ),
-          );
+            recognizer: isHighlightClickable && hasHighlightTap(matchedWord)
+                ? (TapGestureRecognizer()..onTap = getHighlightTapCallback(matchedWord))
+                : null,
+          ));
+
+          startIndex = earliestMatchIndex + matchedWord.length;
         }
       }
 
@@ -107,5 +120,28 @@ class WordColorizer extends StatelessWidget {
         children: createTextSpans(text, highlightWordsWithColors),
       ),
     );
+  }
+
+  TextStyle _getGoogleFontTextStyle(
+    String fontName, {
+    required Color color,
+    required double size,
+    FontWeight weight = FontWeight.normal,
+  }) {
+    try {
+      return GoogleFonts.getFont(
+        fontName,
+        fontSize: size,
+        fontWeight: weight,
+        color: color,
+      );
+    } catch (_) {
+      
+      return TextStyle(
+        fontSize: size,
+        color: color,
+        fontWeight: weight,
+      );
+    }
   }
 }
