@@ -9,6 +9,8 @@ class WordColorizer extends StatelessWidget {
   final TextAlign textAlign;
   final double fontSize;
   final String? fontFamily;
+  final FontWeight? fontWeight;
+  final FontStyle? fontStyle;
   final bool isHighlightClickable;
   final Map<String, VoidCallback>? onHighlightTap;
 
@@ -23,6 +25,8 @@ class WordColorizer extends StatelessWidget {
     this.textAlign = TextAlign.center,
     this.fontSize = 24,
     this.fontFamily,
+    this.fontWeight,
+    this.fontStyle,
     this.isHighlightClickable = false,
     this.onHighlightTap,
     this.onHighlightTapMap,
@@ -40,7 +44,8 @@ class WordColorizer extends StatelessWidget {
     }
 
     TextStyle resolveTextStyle(Color color, {bool isBold = false}) {
-      final fontWeight = isBold ? FontWeight.bold : FontWeight.normal;
+      final resolvedWeight = isBold ? FontWeight.bold : (fontWeight ?? FontWeight.normal);
+      final resolvedStyle = fontStyle ?? FontStyle.normal;
 
       if (fontFamily != null && fontFamily!.toLowerCase().startsWith('google.')) {
         final googleFontName = fontFamily!.split('.').last;
@@ -48,7 +53,8 @@ class WordColorizer extends StatelessWidget {
           googleFontName,
           color: color,
           size: fontSize,
-          weight: fontWeight,
+          weight: resolvedWeight,
+          style: resolvedStyle,
         );
       }
 
@@ -56,7 +62,8 @@ class WordColorizer extends StatelessWidget {
         fontFamily: fontFamily,
         fontSize: fontSize,
         color: color,
-        fontWeight: fontWeight,
+        fontWeight: resolvedWeight,
+        fontStyle: resolvedStyle,
       );
     }
 
@@ -73,6 +80,7 @@ class WordColorizer extends StatelessWidget {
         while (startIndex < fullText.length) {
           int earliestMatchIndex = fullText.length;
           String? matchedWord;
+
           for (final word in highlightMap.keys) {
             final matchIndex = fullText.indexOf(word, startIndex);
             if (matchIndex >= 0 && matchIndex < earliestMatchIndex) {
@@ -106,11 +114,9 @@ class WordColorizer extends StatelessWidget {
                 ? (TapGestureRecognizer()..onTap = getHighlightTapCallback(matchedWord))
                 : null,
           ));
-
           startIndex = earliestMatchIndex + matchedWord.length;
         }
       }
-
       return spans;
     }
 
@@ -127,20 +133,22 @@ class WordColorizer extends StatelessWidget {
     required Color color,
     required double size,
     FontWeight weight = FontWeight.normal,
+    FontStyle style = FontStyle.normal,
   }) {
     try {
       return GoogleFonts.getFont(
         fontName,
         fontSize: size,
         fontWeight: weight,
+        fontStyle: style,
         color: color,
       );
     } catch (_) {
-      
       return TextStyle(
         fontSize: size,
         color: color,
         fontWeight: weight,
+        fontStyle: style,
       );
     }
   }

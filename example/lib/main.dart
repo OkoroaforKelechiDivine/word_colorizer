@@ -22,18 +22,23 @@ class WordColorizerApp extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.all(20.0),
             child: WordColorizer(
-              text: 'I am Kelechi Divine, the creator of zipDemon, easy_carousel, word_colorizer and Nzinger and I wrote those codes in Flutter with style and grace!',
+              text: "Flutter is powerful, open source, and fun!",
               highlightWordsWithColors: {
-                'zipDemon': Colors.green,
-                'Flutter': Colors.blue,
-                'grace': Colors.purple,
+                "Flutter": Colors.blue,
+                "open source": Colors.green,
+                "fun": Colors.orange,
               },
-              fontFamily: 'Google.Macondo',
-              fontSize: 22,
+              defaultColor: Colors.grey,
+              textAlign: TextAlign.left,
+              fontSize: 20,
+              fontFamily: "google.Nunito",
+              fontWeight: FontWeight.w900,
+              fontStyle: FontStyle.italic,
               isHighlightClickable: true,
               onHighlightTap: {
-                'ZipDmone': _onZipTap,
-                'Flutter': _onFlutterTap,
+                "Flutter": _onFlutterTap,
+                "open source": _onOpenSourceTap,
+                "fun": _onFunTap,
               },
             ),
           ),
@@ -42,11 +47,15 @@ class WordColorizerApp extends StatelessWidget {
     );
   }
 
-  static void _onZipTap() {
-    debugPrint("👑 ZipDmone tapped! Royalty recognized.");
+  static void _onFlutterTap() {
+    debugPrint("Flutter tapped! Magic enabled.");
   }
 
-  static void _onFlutterTap() {
-    debugPrint("🪄 Flutter tapped! Magic enabled.");
+  static void _onOpenSourceTap() {
+    debugPrint("Open source tapped! Community power.");
+  }
+
+  static void _onFunTap() {
+    debugPrint("Fun tapped! Let's party!");
   }
 }
