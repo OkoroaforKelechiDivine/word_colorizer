@@ -40,6 +40,8 @@ class WordColorizerApp extends StatelessWidget {
                 "open source": _onOpenSourceTap,
                 "fun": _onFunTap,
               },
+              underlineHighlights: true,
+              underlineColor: Colors.purple,
             ),
           ),
         ),

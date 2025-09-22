@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 class WordColorizer extends StatelessWidget {
   final String text;
   final Map<String, Color> highlightWordsWithColors;
+  final Map<String, Color?> underlineColors;
   final Color? defaultColor;
   final TextAlign textAlign;
   final double fontSize;
@@ -21,6 +22,7 @@ class WordColorizer extends StatelessWidget {
     super.key,
     required this.text,
     this.highlightWordsWithColors = const {},
+    this.underlineColors = const <String, Color?>{},
     this.defaultColor,
     this.textAlign = TextAlign.center,
     this.fontSize = 24,
@@ -36,16 +38,17 @@ class WordColorizer extends StatelessWidget {
   Widget build(BuildContext context) {
     bool hasHighlightTap(String word) {
       return (onHighlightTap?.containsKey(word) ?? false) ||
-          (onHighlightTap?.containsKey(word) ?? false);
+             (onHighlightTapMap?.containsKey(word) ?? false);
     }
 
     VoidCallback? getHighlightTapCallback(String word) {
-      return onHighlightTap?[word] ?? onHighlightTap?[word];
+      return onHighlightTap?[word] ?? onHighlightTapMap?[word];
     }
 
-    TextStyle resolveTextStyle(Color color, {bool isBold = false}) {
+    TextStyle resolveTextStyle(Color color, {bool isBold = false, Color? underlineColor}) {
       final resolvedWeight = isBold ? FontWeight.bold : (fontWeight ?? FontWeight.normal);
       final resolvedStyle = fontStyle ?? FontStyle.normal;
+      final TextDecoration? deco = underlineColor != null ? TextDecoration.underline : null;
 
       if (fontFamily != null && fontFamily!.toLowerCase().startsWith('google.')) {
         final googleFontName = fontFamily!.split('.').last;
@@ -55,6 +58,8 @@ class WordColorizer extends StatelessWidget {
           size: fontSize,
           weight: resolvedWeight,
           style: resolvedStyle,
+          decoration: deco,
+          decorationColor: underlineColor,
         );
       }
 
@@ -64,6 +69,8 @@ class WordColorizer extends StatelessWidget {
         color: color,
         fontWeight: resolvedWeight,
         fontStyle: resolvedStyle,
+        decoration: deco,
+        decorationColor: underlineColor,
       );
     }
 
@@ -104,11 +111,13 @@ class WordColorizer extends StatelessWidget {
             ));
           }
 
+          final Color? underlineColorForWord = underlineColors[matchedWord];
           spans.add(TextSpan(
             text: matchedWord,
             style: resolveTextStyle(
               highlightWordsWithColors[matchedWord] ?? Colors.black,
               isBold: true,
+              underlineColor: underlineColorForWord,
             ),
             recognizer: isHighlightClickable && hasHighlightTap(matchedWord)
                 ? (TapGestureRecognizer()..onTap = getHighlightTapCallback(matchedWord))
@@ -134,6 +143,8 @@ class WordColorizer extends StatelessWidget {
     required double size,
     FontWeight weight = FontWeight.normal,
     FontStyle style = FontStyle.normal,
+    TextDecoration? decoration,
+    Color? decorationColor,
   }) {
     try {
       return GoogleFonts.getFont(
@@ -142,6 +153,9 @@ class WordColorizer extends StatelessWidget {
         fontWeight: weight,
         fontStyle: style,
         color: color,
+      ).copyWith(
+        decoration: decoration,
+        decorationColor: decorationColor,
       );
     } catch (_) {
       return TextStyle(
@@ -149,6 +163,8 @@ class WordColorizer extends StatelessWidget {
         color: color,
         fontWeight: weight,
         fontStyle: style,
+        decoration: decoration,
+        decorationColor: decorationColor,
       );
     }
   }
